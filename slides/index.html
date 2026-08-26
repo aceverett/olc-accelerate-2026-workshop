@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub is for IDs, Too | OLC Accelerate 2026</title>
+    <style>
+      :root {
+        --ivory: #faf9f5;
+        --paper: #ffffff;
+        --slate: #141413;
+        --clay: #d97757;
+        --olive: #788c5d;
+        --blue: #315c7c;
+        --oat: #e3dacc;
+        --gray-150: #f0eee6;
+        --gray-300: #d1cfc5;
+        --gray-500: #77766f;
+        --gray-700: #3d3d3a;
+        --serif: ui-serif, Georgia, "Times New Roman", serif;
+        --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--ivory);
+        color: var(--slate);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+      }
+
+      .progress {
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: 5px;
+        background: var(--gray-300);
+        z-index: 30;
+      }
+
+      .progress span {
+        display: block;
+        width: 16.666%;
+        height: 100%;
+        background: var(--clay);
+        transition: width 240ms ease;
+      }
+
+      .slide {
+        min-height: 100vh;
+        width: 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(72px, 9vh, 96px) clamp(24px, 6vw, 88px);
+      }
+
+      .slide-inner {
+        width: min(100%, 1040px);
+      }
+
+      .wide {
+        width: min(100%, 1160px);
+      }
+
+      .invert {
+        background: var(--slate);
+        color: var(--ivory);
+      }
+
+      .eyebrow {
+        color: var(--gray-500);
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0 0 28px;
+        text-transform: uppercase;
+      }
+
+      .invert .eyebrow {
+        color: var(--gray-300);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        font-size: clamp(44px, 6.4vw, 78px);
+        line-height: 1.04;
+        margin: 0 0 24px;
+        max-width: 920px;
+      }
+
+      h2 {
+        font-size: clamp(34px, 4.6vw, 56px);
+        line-height: 1.1;
+        margin: 0 0 42px;
+        max-width: 900px;
+      }
+
+      h3 {
+        font-size: clamp(22px, 2.1vw, 30px);
+        line-height: 1.18;
+        margin: 0 0 14px;
+      }
+
+      p {
+        font-size: clamp(17px, 1.45vw, 21px);
+        line-height: 1.58;
+        margin: 0;
+      }
+
+      .subtitle {
+        color: var(--gray-700);
+        max-width: 680px;
+      }
+
+      .invert .subtitle {
+        color: var(--gray-300);
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 28px;
+        margin-top: 56px;
+        color: var(--gray-500);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .ornament {
+        width: 58px;
+        height: 58px;
+        margin-bottom: 42px;
+      }
+
+      .ornament circle,
+      .ornament path {
+        vector-effect: non-scaling-stroke;
+      }
+
+      .grid-3,
+      .grid-2 {
+        display: grid;
+        gap: clamp(20px, 3vw, 34px);
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .panel {
+        border-top: 1px solid var(--gray-300);
+        padding-top: 24px;
+      }
+
+      .invert .panel {
+        border-color: var(--gray-700);
+      }
+
+      .panel-label {
+        color: var(--gray-500);
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+      }
+
+      .panel p,
+      .runway p,
+      .check-list li {
+        color: var(--gray-700);
+        font-size: clamp(15px, 1.25vw, 18px);
+      }
+
+      .invert .panel p,
+      .invert .runway p {
+        color: var(--gray-300);
+      }
+
+      .accent {
+        color: var(--clay);
+      }
+
+      .workflow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .step,
+      .runway,
+      .snippet,
+      .diagram {
+        border: 1px solid var(--gray-300);
+        background: rgba(255, 255, 255, 0.72);
+        border-radius: 8px;
+      }
+
+      .step {
+        min-height: 132px;
+        padding: 18px;
+        position: relative;
+      }
+
+      .invert .step {
+        background: #24221e;
+        border-color: #8c7f6d;
+        color: var(--ivory);
+      }
+
+      .invert .step::before {
+        background: var(--clay);
+        content: "";
+        height: 4px;
+        inset: 0 0 auto 0;
+        position: absolute;
+      }
+
+      .step-num {
+        color: var(--clay);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+
+      .invert .step-num {
+        color: #f0b08f;
+        font-weight: 700;
+      }
+
+      .step-title {
+        display: block;
+        font-family: var(--serif);
+        font-size: clamp(19px, 1.9vw, 26px);
+        line-height: 1.15;
+        margin-bottom: 8px;
+      }
+
+      .step-note {
+        color: var(--gray-700);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .invert .step-title {
+        color: #ffffff;
+      }
+
+      .invert .step-note {
+        color: #eee7da;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      .arrow {
+        align-self: center;
+        color: var(--gray-500);
+        font-family: var(--mono);
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .invert .arrow {
+        color: #f0b08f;
+        font-weight: 700;
+      }
+
+      .demo-map {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+        gap: clamp(24px, 4vw, 52px);
+        align-items: center;
+      }
+
+      .outcome-layout,
+      .visual-walkthrough,
+      .workshop-launch {
+        align-items: center;
+        display: grid;
+        gap: clamp(28px, 5vw, 64px);
+        grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1.12fr);
+      }
+
+      .outcome-layout h1 {
+        font-size: clamp(44px, 5.7vw, 72px);
+      }
+
+      .media-frame {
+        background: var(--paper);
+        border: 1px solid var(--gray-300);
+        border-radius: 10px;
+        box-shadow: 0 18px 45px rgba(20, 20, 19, 0.09);
+        overflow: hidden;
+      }
+
+      .media-frame img {
+        display: block;
+        height: 100%;
+        object-fit: contain;
+        width: 100%;
+      }
+
+      .product-shot {
+        aspect-ratio: 16 / 11;
+        padding: 16px;
+      }
+
+      .fork-visuals {
+        display: grid;
+        gap: 16px;
+      }
+
+      .fork-context {
+        aspect-ratio: 1278 / 514;
+      }
+
+      .fork-zoom {
+        align-items: center;
+        background: #0d1117;
+        display: grid;
+        gap: 18px;
+        grid-template-columns: 1fr auto;
+        padding: 14px 18px;
+      }
+
+      .fork-zoom img {
+        height: auto;
+        width: min(100%, 390px);
+      }
+
+      .fork-zoom span {
+        color: var(--ivory);
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .editor-shot {
+        aspect-ratio: 1052 / 506;
+      }
+
+      .commit-shot {
+        aspect-ratio: 351 / 369;
+        justify-self: center;
+        max-height: 470px;
+        max-width: 450px;
+        width: 100%;
+      }
+
+      .pages-shot {
+        aspect-ratio: 949 / 181;
+        margin-top: 32px;
+      }
+
+      .action-steps {
+        display: grid;
+        gap: clamp(22px, 4vw, 46px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .action-step {
+        border-top: 3px solid var(--clay);
+        padding-top: 18px;
+      }
+
+      .action-step span {
+        color: var(--clay);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+
+      .action-step p {
+        color: var(--gray-700);
+        font-size: clamp(15px, 1.2vw, 18px);
+      }
+
+      .delivery-options {
+        display: grid;
+        gap: clamp(30px, 5vw, 64px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: clamp(30px, 5vh, 54px);
+      }
+
+      .delivery-option {
+        border-top: 3px solid var(--clay);
+        padding-top: 18px;
+      }
+
+      .delivery-option span {
+        color: var(--clay);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      .delivery-option p {
+        color: var(--gray-700);
+        font-size: clamp(15px, 1.2vw, 18px);
+      }
+
+      .plain-flow {
+        display: grid;
+        gap: 0;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .session-plan {
+        display: grid;
+        gap: clamp(20px, 3vw, 34px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .session-phase {
+        border-top: 3px solid var(--clay);
+        padding-top: 20px;
+      }
+
+      .session-phase span {
+        color: var(--clay);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+      }
+
+      .session-phase h3 {
+        margin-bottom: 10px;
+      }
+
+      .session-phase p {
+        color: var(--gray-700);
+        font-size: clamp(15px, 1.15vw, 17px);
+      }
+
+      .outcomes {
+        border-left: 4px solid var(--clay);
+        margin-top: 34px;
+        padding: 4px 0 4px 22px;
+      }
+
+      .outcomes strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: clamp(20px, 1.8vw, 26px);
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .outcomes p {
+        color: var(--gray-700);
+        font-size: clamp(15px, 1.15vw, 17px);
+      }
+
+      .belief-grid {
+        display: grid;
+        gap: clamp(30px, 5vw, 70px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .belief-grid .panel {
+        border-color: #8c7f6d;
+      }
+
+      .belief-grid ul {
+        list-style: none;
+        margin: 18px 0 0;
+        padding: 0;
+      }
+
+      .belief-grid li {
+        border-top: 1px solid var(--gray-700);
+        color: #eee7da;
+        font-size: clamp(16px, 1.25vw, 19px);
+        line-height: 1.45;
+        padding: 13px 0;
+      }
+
+      .reframe-line {
+        border-top: 1px solid #8c7f6d;
+        color: var(--ivory);
+        font-family: var(--serif);
+        font-size: clamp(22px, 2.2vw, 31px);
+        line-height: 1.35;
+        margin-top: 34px;
+        padding-top: 22px;
+      }
+
+      .solution-flow {
+        display: grid;
+        gap: 0;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .solution-step {
+        border-top: 3px solid var(--clay);
+        padding: 20px 28px 0 0;
+        position: relative;
+      }
+
+      .solution-step:not(:last-child)::after {
+        color: var(--gray-300);
+        content: "\2192";
+        font-family: var(--mono);
+        font-size: 24px;
+        position: absolute;
+        right: 10px;
+        top: 48px;
+      }
+
+      .solution-step span {
+        color: var(--clay);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      }
+
+      .solution-step strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: clamp(20px, 1.9vw, 27px);
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .solution-step p {
+        color: var(--gray-700);
+        font-size: clamp(14px, 1.1vw, 16px);
+        line-height: 1.48;
+      }
+
+      .plain-action {
+        border-top: 3px solid var(--clay);
+        padding: 22px 24px 0 0;
+        position: relative;
+      }
+
+      .plain-action:not(:last-child)::after {
+        color: var(--gray-300);
+        content: "\2192";
+        font-family: var(--mono);
+        font-size: 26px;
+        position: absolute;
+        right: 18px;
+        top: 48px;
+      }
+
+      .plain-action strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: clamp(22px, 2.2vw, 30px);
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      .plain-action span {
+        color: var(--gray-700);
+        display: block;
+        font-size: clamp(15px, 1.2vw, 18px);
+        line-height: 1.5;
+        max-width: 210px;
+      }
+
+      .invert .plain-action span,
+      .invert .phase p {
+        color: #eee7da;
+      }
+
+      .invert .plain-action {
+        border-color: var(--clay);
+      }
+
+      .term-list {
+        counter-reset: terms;
+        display: grid;
+        gap: 0;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .term {
+        border-left: 1px solid var(--gray-300);
+        min-height: 220px;
+        padding: 0 clamp(16px, 2vw, 26px);
+      }
+
+      .term:first-child {
+        border-left: 0;
+        padding-left: 0;
+      }
+
+      .term::before {
+        color: var(--clay);
+        content: "0" counter(terms);
+        counter-increment: terms;
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 22px;
+      }
+
+      .term dt {
+        font-family: var(--serif);
+        font-size: clamp(21px, 2vw, 28px);
+        margin-bottom: 10px;
+      }
+
+      .term dd {
+        color: var(--gray-700);
+        font-size: clamp(14px, 1.15vw, 17px);
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .choice-note {
+        border-top: 1px solid var(--gray-300);
+        color: var(--gray-700);
+        font-size: 16px;
+        margin-top: 30px;
+        padding-top: 20px;
+      }
+
+      .workshop-steps {
+        display: grid;
+        gap: 24px;
+        margin-top: clamp(28px, 5vh, 48px);
+        max-width: 520px;
+      }
+
+      .workshop-step {
+        border-top: 3px solid var(--clay);
+        display: grid;
+        gap: 8px 22px;
+        grid-template-columns: 110px minmax(0, 1fr);
+        padding-top: 18px;
+      }
+
+      .workshop-step span {
+        color: var(--clay);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        grid-row: 1 / span 2;
+        padding-top: 6px;
+        text-transform: uppercase;
+      }
+
+      .workshop-step h3,
+      .workshop-step p {
+        margin: 0;
+      }
+
+      .workshop-step p {
+        font-size: clamp(15px, 1.2vw, 18px);
+      }
+
+      .success-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .success-list li {
+        border-top: 1px solid var(--gray-300);
+        font-size: clamp(17px, 1.45vw, 21px);
+        line-height: 1.45;
+        padding: 15px 0 15px 34px;
+        position: relative;
+      }
+
+      .success-list li::before {
+        color: var(--olive);
+        content: "\2713";
+        font-family: var(--mono);
+        left: 0;
+        position: absolute;
+      }
+
+      .fallback {
+        border-left: 4px solid var(--clay);
+        margin-top: 26px;
+        padding: 4px 0 4px 22px;
+      }
+
+      .fallback p {
+        color: var(--gray-700);
+        font-size: 16px;
+      }
+
+      .launch-code {
+        align-items: center;
+        aspect-ratio: 1;
+        background: var(--paper);
+        border: 2px dashed var(--gray-300);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 330px;
+        padding: 28px;
+        text-align: center;
+      }
+
+      .launch-code img {
+        display: block;
+        height: auto;
+        max-width: 250px;
+        width: 100%;
+      }
+
+      .launch-code strong {
+        color: var(--clay);
+        font-family: var(--mono);
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      .launch-code span {
+        color: var(--gray-500);
+        font-size: 15px;
+        line-height: 1.45;
+        margin-top: 14px;
+      }
+
+      .launch-url {
+        color: var(--slate);
+        display: block;
+        font-family: var(--mono);
+        font-size: 17px;
+        font-weight: 700;
+        margin-top: 14px;
+        overflow-wrap: anywhere;
+      }
+
+      #slide-7 h2 {
+        margin-bottom: 26px;
+      }
+
+      #slide-7 .runway {
+        padding: 24px 30px;
+      }
+
+      #slide-7 .runway ol {
+        margin-top: 14px;
+      }
+
+      #slide-7 .runway li {
+        padding: 10px 0;
+      }
+
+      #slide-7 .choice-note {
+        margin-top: 18px;
+        padding-top: 14px;
+      }
+
+      #slide-8 h2,
+      #slide-9 h2,
+      #slide-10 h2,
+      #slide-11 h2 {
+        margin-bottom: 28px;
+      }
+
+      .diagram {
+        padding: 24px;
+      }
+
+      .browser-frame {
+        border: 1px solid var(--gray-300);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      .browser-bar {
+        display: flex;
+        gap: 8px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--gray-150);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--gray-300);
+      }
+
+      .file-row {
+        align-items: center;
+        border-bottom: 1px solid var(--gray-150);
+        display: grid;
+        grid-template-columns: 88px 1fr;
+        gap: 14px;
+        padding: 14px;
+      }
+
+      .file-key {
+        border: 1px solid var(--gray-300);
+        border-radius: 6px;
+        color: var(--clay);
+        font-family: var(--mono);
+        font-size: 13px;
+        padding: 8px 10px;
+        text-align: center;
+      }
+
+      .file-label {
+        color: var(--gray-700);
+        font-size: 15px;
+      }
+
+      .runway {
+        padding: clamp(24px, 3vw, 34px);
+      }
+
+      .runway ol,
+      .check-list {
+        list-style: none;
+        margin: 24px 0 0;
+        padding: 0;
+      }
+
+      .runway li,
+      .check-list li {
+        border-top: 1px solid var(--gray-150);
+        padding: 14px 0;
+      }
+
+      .runway li:first-child,
+      .check-list li:first-child {
+        border-top: 0;
+      }
+
+      .runway strong {
+        color: var(--slate);
+        display: block;
+        font-family: var(--mono);
+        font-size: 12px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+      }
+
+      .snippet {
+        background: #11110f;
+        color: var(--ivory);
+        font-family: var(--mono);
+        font-size: clamp(12px, 1.15vw, 15px);
+        line-height: 1.7;
+        overflow-x: auto;
+        padding: clamp(18px, 3vw, 30px);
+        white-space: pre;
+      }
+
+      .resource-strip {
+        border-top: 1px solid var(--gray-300);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px 32px;
+        margin-top: 42px;
+        padding-top: 24px;
+      }
+
+      .resource-strip span {
+        color: var(--gray-500);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .invert .resource-strip {
+        border-color: #8c7f6d;
+      }
+
+      .invert .resource-strip span {
+        color: #eee7da;
+        font-size: 13px;
+      }
+
+      kbd {
+        border: 1px solid var(--gray-300);
+        border-radius: 6px;
+        box-shadow: inset 0 -1px 0 var(--gray-300);
+        color: var(--clay);
+        font-family: var(--mono);
+        font-size: 0.9em;
+        padding: 2px 7px;
+      }
+
+      #counter {
+        bottom: 22px;
+        color: var(--gray-500);
+        font-family: var(--mono);
+        font-size: 12px;
+        position: fixed;
+        right: 28px;
+        z-index: 30;
+      }
+
+      .sr-only {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 500ms ease,
+          transform 500ms ease;
+      }
+
+      .slide:not(.active) .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      .active .reveal:nth-child(2) {
+        transition-delay: 80ms;
+      }
+      .active .reveal:nth-child(3) {
+        transition-delay: 160ms;
+      }
+      .active .reveal:nth-child(4) {
+        transition-delay: 240ms;
+      }
+      .active .reveal:nth-child(5) {
+        transition-delay: 320ms;
+      }
+
+      .fill-bar {
+        background: var(--gray-150);
+        height: 8px;
+        margin-top: 16px;
+        overflow: hidden;
+        border-radius: 999px;
+      }
+
+      .fill-bar span {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--olive);
+        transition: width 800ms ease 300ms;
+      }
+
+      .active .fill-bar span {
+        width: var(--value);
+      }
+
+      @media (max-width: 860px) {
+        body {
+          scroll-snap-type: none;
+        }
+
+        .slide {
+          align-items: flex-start;
+          padding: 72px 22px 86px;
+        }
+
+        .grid-3,
+        .grid-2,
+        .demo-map,
+        .workflow,
+        .outcome-layout,
+        .visual-walkthrough,
+        .workshop-launch,
+        .plain-flow,
+        .session-plan,
+        .belief-grid,
+        .solution-flow,
+        .term-list,
+        .delivery-options {
+          grid-template-columns: 1fr;
+        }
+
+        .workshop-step {
+          grid-template-columns: 1fr;
+        }
+
+        .workshop-step span {
+          grid-row: auto;
+          padding-top: 0;
+        }
+
+        .action-steps,
+        .fork-zoom {
+          grid-template-columns: 1fr;
+        }
+
+        .commit-shot {
+          max-height: none;
+          max-width: 390px;
+        }
+
+        .term {
+          border-left: 0;
+          border-top: 1px solid var(--gray-300);
+          min-height: 0;
+          padding: 18px 0;
+        }
+
+        .plain-action:not(:last-child)::after {
+          display: none;
+        }
+
+        .solution-step:not(:last-child)::after {
+          display: none;
+        }
+
+        .arrow {
+          display: none;
+        }
+
+      .meta-row,
+      .resource-strip {
+        gap: 12px;
+      }
+
+      .slide:not(.active) .reveal,
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      #counter {
+        bottom: 14px;
+        right: 18px;
+      }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 1ms !important;
+          animation-duration: 1ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true">
+      <span id="progressFill"></span>
+    </div>
+    <div id="counter" aria-hidden="true">1 / 13</div>
+    <div
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+      id="announcer"
+    ></div>
+
+    <main>
+      <section class="slide active" id="slide-1" aria-label="Example product and session promise">
+        <div class="slide-inner wide outcome-layout">
+          <div>
+            <p class="eyebrow reveal">OLC Accelerate 2026 / education session</p>
+            <h1 class="reveal">Today, you will make something like this.</h1>
+            <p class="subtitle reveal">
+              A useful, accessible LMS interaction—created in a browser, with
+              AI support, and without becoming a programmer.
+            </p>
+            <div class="meta-row reveal">
+              <span>Anna Everett and Jian Su</span>
+              <span>University of Tennessee, Knoxville</span>
+              <span>brief tour + guided workshop</span>
+            </div>
+          </div>
+          <div class="media-frame product-shot reveal">
+            <img
+              src="01-finished-lms-accordion.png"
+              alt="Course Syllabus Highlights accordion with Course Overview expanded and five additional sections collapsed"
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-2" aria-label="Session plan and learning objectives">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">What we will do today</p>
+          <h2 class="reveal">A short orientation. A guided build. Your own working example.</h2>
+          <div class="session-plan reveal">
+            <div class="session-phase">
+              <span>01 / orient</span>
+              <h3>See the possibility</h3>
+              <p>Examine the LMS constraint, the finished product, and the workflow.</p>
+            </div>
+            <div class="session-phase">
+              <span>02 / learn</span>
+              <h3>Decode GitHub</h3>
+              <p>Learn the five terms and actions needed for this project.</p>
+            </div>
+            <div class="session-phase">
+              <span>03 / follow</span>
+              <h3>Build with us</h3>
+              <p>Fork, edit, check, save, publish, and embed one example together.</p>
+            </div>
+            <div class="session-phase">
+              <span>04 / practice</span>
+              <h3>Make it yours</h3>
+              <p>Customize real course content while we circulate and help.</p>
+            </div>
+          </div>
+          <div class="outcomes reveal">
+            <strong>By the end, you can customize, deliver, and verify a small LMS interaction.</strong>
+            <p>You will also be able to explain what a repository, fork, commit, and GitHub Pages do in this workflow.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-3" aria-label="The LMS design constraint">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">The LMS constraint</p>
+          <h2 class="reveal">The learning design is often richer than the production options.</h2>
+          <div class="grid-3">
+            <article class="panel reveal">
+              <div class="panel-label">LMS editor</div>
+              <h3>Reliable, but limited</h3>
+              <p>Interactive ideas are often reduced to static text, links, and long vertical pages.</p>
+            </article>
+            <article class="panel reveal">
+              <div class="panel-label">Authoring suite</div>
+              <h3>Capable, but heavy</h3>
+              <p>Licenses and packaged exports can make small interactions expensive or difficult to revise.</p>
+            </article>
+            <article class="panel reveal">
+              <div class="panel-label">Custom development</div>
+              <h3>Flexible, but distant</h3>
+              <p>Developer workflows can appear to require coding expertise, local setup, and technical support.</p>
+            </article>
+          </div>
+          <div class="resource-strip reveal">
+            <span>The compromise:</span>
+            <span>simplify the teaching idea, buy another tool, or wait for development capacity.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide invert" id="slide-4" aria-label="Imposter feelings around developer tools">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">The psychological constraint</p>
+          <h2 class="reveal">The tool can feel like it belongs to someone else.</h2>
+          <div class="belief-grid reveal">
+            <article class="panel">
+              <div class="panel-label">What creates the barrier</div>
+              <h3>Code anxiety and imposter feelings</h3>
+              <ul>
+                <li>Unfamiliar language signals: “This is not my space.”</li>
+                <li>Version control sounds riskier than ordinary saving.</li>
+                <li>Fear of breaking something discourages exploration.</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <div class="panel-label">What instructional designers already do</div>
+              <h3>Design, test, revise, and document</h3>
+              <ul>
+                <li>Translate learning goals into concrete experiences.</li>
+                <li>Prototype, gather feedback, and improve an artifact.</li>
+                <li>Apply accessibility and quality criteria before release.</li>
+              </ul>
+            </article>
+          </div>
+          <p class="reframe-line reveal">You do not need a new professional identity. You need a safe first workflow.</p>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-5" aria-label="How the workflow solves the constraint">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">The practical bridge</p>
+          <h2 class="reveal">Turn one teaching idea into a small, testable webpage.</h2>
+          <div class="solution-flow reveal">
+            <div class="solution-step">
+              <span>01 / define</span>
+              <strong>Learning goal</strong>
+              <p>Decide what students should do or notice.</p>
+            </div>
+            <div class="solution-step">
+              <span>02 / draft</span>
+              <strong>AI support</strong>
+              <p>Describe the interaction and required safeguards.</p>
+            </div>
+            <div class="solution-step">
+              <span>03 / edit</span>
+              <strong>GitHub browser editor</strong>
+              <p>Customize the small webpage without local setup.</p>
+            </div>
+            <div class="solution-step">
+              <span>04 / verify</span>
+              <strong>Human review</strong>
+              <p>Check content, keyboard use, and responsive behavior.</p>
+            </div>
+            <div class="solution-step">
+              <span>05 / deliver</span>
+              <strong>Pages + LMS</strong>
+              <p>Publish the webpage and embed it in the course.</p>
+            </div>
+          </div>
+          <div class="resource-strip reveal">
+            <span>GitHub supplies the workspace and history.</span>
+            <span>AI helps draft.</span>
+            <span>The instructional designer remains responsible for the result.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-6" aria-label="Essential GitHub vocabulary">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">Five words are enough to begin</p>
+          <h2 class="reveal">GitHub is an online project folder with a memory.</h2>
+          <dl class="term-list reveal">
+            <div class="term">
+              <dt>Repository</dt>
+              <dd>The project folder stored online.</dd>
+            </div>
+            <div class="term">
+              <dt>Fork</dt>
+              <dd>Your own safe copy of that folder.</dd>
+            </div>
+            <div class="term">
+              <dt>Editor</dt>
+              <dd>The browser workspace where you make changes.</dd>
+            </div>
+            <div class="term">
+              <dt>Commit</dt>
+              <dd>A named save point you can return to.</dd>
+            </div>
+            <div class="term">
+              <dt>Pages</dt>
+              <dd>The feature that turns your project into a webpage.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-7" aria-label="Two participation paths">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">Choose the path that fits today</p>
+          <h2 class="reveal">Two runways. The same working interactive.</h2>
+          <div class="grid-2">
+            <article class="runway reveal">
+              <div class="panel-label">Runway A / quickest route</div>
+              <h3>Use the live builder</h3>
+              <p>No GitHub account is required. Customize the example, copy the HTML, and paste it into the LMS.</p>
+              <ol>
+                <li><strong>Best when</strong> Account setup, Wi-Fi, 2FA, or device policy gets in the way.</li>
+                <li><strong>You keep</strong> A working LMS interaction you can reuse.</li>
+              </ol>
+            </article>
+            <article class="runway reveal">
+              <div class="panel-label">Runway B / maintainable route</div>
+              <h3>Use the GitHub workflow</h3>
+              <p>Make a personal copy, edit it in the browser, publish it, and embed the live webpage in the LMS.</p>
+              <ol>
+                <li><strong>Best when</strong> You want to update the hosted object after the workshop.</li>
+                <li><strong>You keep</strong> A versioned project and a reusable public URL.</li>
+              </ol>
+            </article>
+          </div>
+          <p class="choice-note reveal">Runway A is not a lesser outcome. You can move to GitHub later.</p>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-8" aria-label="Fork the starter repository">
+        <div class="slide-inner wide visual-walkthrough">
+          <div>
+            <p class="eyebrow reveal">We will do this together / part one</p>
+            <h2 class="reveal">Fork the starter to make your own safe copy.</h2>
+            <div class="action-step reveal">
+              <span>01 / fork</span>
+              <h3>Select Fork</h3>
+              <p>The original repository stays intact. Your fork becomes a personal workspace where you can experiment without changing the presenters’ copy.</p>
+            </div>
+          </div>
+          <div class="fork-visuals reveal">
+            <div class="media-frame fork-context">
+              <img
+                src="02-github-fork2.png"
+                alt="GitHub repository page with an orange arrow and outline identifying the Fork button"
+              >
+            </div>
+            <div class="media-frame fork-zoom">
+              <img
+                src="02-github-fork.png"
+                alt="Close-up of the Watch, Fork, and Starred controls on GitHub"
+              >
+              <span>Look for Fork near the upper-right corner.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-9" aria-label="Open the GitHub browser editor">
+        <div class="slide-inner wide visual-walkthrough">
+          <div>
+          <p class="eyebrow reveal">We will do this together / part two</p>
+            <h2 class="reveal">Press <kbd>.</kbd> to open the repository in a browser editor.</h2>
+            <div class="action-step reveal">
+              <span>02 / open + edit</span>
+              <h3>Open <code>index.html</code></h3>
+              <p>Use the file list to find the interactive. Make a small, visible change and preview the result before saving.</p>
+            </div>
+          </div>
+          <div class="media-frame editor-shot reveal">
+            <img
+              src="03-github-web-editor.png"
+              alt="GitHub browser editor with the slides folder expanded and index.html open for editing"
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-10" aria-label="Commit changes in GitHub">
+        <div class="slide-inner wide visual-walkthrough">
+          <div>
+            <p class="eyebrow reveal">We will do this together / part three</p>
+            <h2 class="reveal">Commit creates a named save point.</h2>
+            <div class="action-steps reveal">
+              <div class="action-step">
+                <span>03 / describe</span>
+                <h3>Name the change</h3>
+                <p>Write a short message that explains what you changed.</p>
+              </div>
+              <div class="action-step">
+                <span>04 / save</span>
+                <h3>Commit &amp; Push</h3>
+                <p>Save the new version back to your GitHub repository.</p>
+              </div>
+            </div>
+          </div>
+          <div class="media-frame commit-shot reveal">
+            <img
+              src="05-commit-controls.png"
+              alt="GitHub browser editor Source Control panel with a commit message, changed index.html file, and Commit and Push button"
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-11" aria-label="Publish with GitHub Pages">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">We will do this together / part four</p>
+          <h2 class="reveal">GitHub Pages turns the repository into a live website.</h2>
+          <div class="action-steps reveal">
+            <div class="action-step">
+              <span>05 / publish</span>
+              <h3>Open Settings → Pages</h3>
+              <p>Enable Pages for the repository and wait for GitHub to publish the site.</p>
+            </div>
+            <div class="action-step">
+              <span>06 / copy</span>
+              <h3>Copy the live URL</h3>
+              <p>This web address is what you will link to or embed in the LMS.</p>
+            </div>
+          </div>
+          <div class="media-frame pages-shot reveal">
+            <img
+              src="06-github-pages-url.png"
+              alt="GitHub Pages settings showing a success message and the live published website URL"
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-12" aria-label="Deliver the published interactive through the LMS">
+        <div class="slide-inner wide">
+          <p class="eyebrow reveal">Return to the LMS</p>
+          <h2 class="reveal">The Pages URL is the bridge back to your course.</h2>
+          <div class="delivery-options reveal">
+            <div class="delivery-option">
+              <span>Option A / link</span>
+              <h3>Send students to the published page</h3>
+              <p>Add the GitHub Pages URL as a module link, button, or course resource.</p>
+            </div>
+            <div class="delivery-option">
+              <span>Option B / embed</span>
+              <h3>Display it inside an LMS page</h3>
+              <p>Embed the GitHub Pages content in the LMS HTML editor so students can interact without leaving the course.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide invert" id="slide-13" aria-label="Workshop launch">
+        <div class="slide-inner wide workshop-launch">
+          <div>
+            <p class="eyebrow reveal">Workshop mode</p>
+            <h2 class="reveal">First, we build together. Then, you make it yours.</h2>
+            <div class="workshop-steps reveal">
+              <div class="workshop-step">
+                <span>Build together</span>
+                <h3>Follow each step</h3>
+                <p>We will pause after every click so you can keep up and ask questions.</p>
+              </div>
+              <div class="workshop-step">
+                <span>Practice</span>
+                <h3>Make it your own</h3>
+                <p>Customize real course content while we circulate and help.</p>
+              </div>
+            </div>
+          </div>
+          <div class="launch-code reveal">
+            <strong>Workshop start</strong>
+            <img
+              src="qr-code.png"
+              alt="QR code for the workshop starting page at tinylink.net/UYNWB"
+            >
+            <a class="launch-url" href="https://tinylink.net/UYNWB">tinylink.net/UYNWB</a>
+            <span>Scan the code or enter the short URL.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const counter = document.getElementById("counter");
+        const announcer = document.getElementById("announcer");
+        const progressFill = document.getElementById("progressFill");
+        let current = 0;
+        let touchStartY = 0;
+
+        function update(index) {
+          current = Math.max(0, Math.min(slides.length - 1, index));
+          slides.forEach((slide, i) =>
+            slide.classList.toggle("active", i === current),
+          );
+          counter.textContent = `${current + 1} / ${slides.length}`;
+          progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
+          announcer.textContent = `Slide ${current + 1} of ${slides.length}`;
+        }
+
+        function go(index) {
+          const target = Math.max(0, Math.min(slides.length - 1, index));
+          slides[target].scrollIntoView({ behavior: "smooth", block: "start" });
+          update(target);
+        }
+
+        document.addEventListener("keydown", (event) => {
+          const nextKeys = ["ArrowRight", "ArrowDown", "PageDown", " "];
+          const prevKeys = ["ArrowLeft", "ArrowUp", "PageUp"];
+          if (nextKeys.includes(event.key)) {
+            event.preventDefault();
+            go(current + 1);
+          }
+          if (prevKeys.includes(event.key)) {
+            event.preventDefault();
+            go(current - 1);
+          }
+          if (event.key === "Home") {
+            event.preventDefault();
+            go(0);
+          }
+          if (event.key === "End") {
+            event.preventDefault();
+            go(slides.length - 1);
+          }
+        });
+
+        document.addEventListener(
+          "touchstart",
+          (event) => {
+            touchStartY = event.touches[0].clientY;
+          },
+          { passive: true },
+        );
+
+        document.addEventListener(
+          "touchend",
+          (event) => {
+            const delta = touchStartY - event.changedTouches[0].clientY;
+            if (Math.abs(delta) > 64) {
+              go(current + (delta > 0 ? 1 : -1));
+            }
+          },
+          { passive: true },
+        );
+
+        let scrollTicking = false;
+
+        function updateFromViewport() {
+          const center = window.innerHeight * 0.45;
+          let bestIndex = 0;
+          let bestDistance = Number.POSITIVE_INFINITY;
+
+          slides.forEach((slide, index) => {
+            const rect = slide.getBoundingClientRect();
+            if (rect.top <= center && rect.bottom >= center) {
+              bestIndex = index;
+              bestDistance = 0;
+              return;
+            }
+            const distance = Math.min(Math.abs(rect.top), Math.abs(rect.bottom));
+            if (distance < bestDistance) {
+              bestDistance = distance;
+              bestIndex = index;
+            }
+          });
+
+          update(bestIndex);
+        }
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (scrollTicking) return;
+            scrollTicking = true;
+            window.requestAnimationFrame(() => {
+              updateFromViewport();
+              scrollTicking = false;
+            });
+          },
+          { passive: true },
+        );
+
+        const hashTarget = window.location.hash
+          ? document.querySelector(window.location.hash)
+          : null;
+        const hashIndex = slides.indexOf(hashTarget);
+        update(hashIndex >= 0 ? hashIndex : 0);
+        window.requestAnimationFrame(updateFromViewport);
+      })();
+    </script>
+  </body>
+</html>
