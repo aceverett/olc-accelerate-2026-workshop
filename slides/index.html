@@ -50,7 +50,7 @@
 
       .progress span {
         display: block;
-        width: 16.666%;
+        width: 14.286%;
         height: 100%;
         background: var(--clay);
         transition: width 240ms ease;
@@ -406,9 +406,15 @@
 
       .delivery-options {
         display: grid;
-        gap: clamp(30px, 5vw, 64px);
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        margin-top: clamp(30px, 5vh, 54px);
+        gap: 26px;
+        margin-top: 0;
+      }
+
+      .delivery-layout {
+        align-items: start;
+        display: grid;
+        gap: clamp(30px, 5vw, 60px);
+        grid-template-columns: minmax(0, 0.82fr) minmax(380px, 1.18fr);
       }
 
       .delivery-option {
@@ -430,6 +436,21 @@
         font-size: clamp(15px, 1.2vw, 18px);
       }
 
+      .delivery-option code {
+        color: var(--blue);
+        font-family: var(--mono);
+        font-size: 0.94em;
+      }
+
+      .pages-note {
+        border-top: 1px solid var(--gray-300);
+        color: var(--gray-700);
+        font-size: 15px;
+        line-height: 1.5;
+        margin-top: 24px;
+        padding-top: 18px;
+      }
+
       .plain-flow {
         display: grid;
         gap: 0;
@@ -439,7 +460,7 @@
       .session-plan {
         display: grid;
         gap: clamp(20px, 3vw, 34px);
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .session-phase {
@@ -484,6 +505,32 @@
         font-size: clamp(15px, 1.15vw, 17px);
       }
 
+      .login-prompt {
+        border-left: 4px solid var(--clay);
+        margin-top: 34px;
+        max-width: 720px;
+        padding: 4px 0 4px 22px;
+      }
+
+      .login-prompt strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: clamp(20px, 1.8vw, 26px);
+        font-weight: 500;
+        margin-bottom: 7px;
+      }
+
+      .login-prompt p {
+        color: var(--gray-700);
+        font-size: clamp(15px, 1.15vw, 17px);
+      }
+
+      .login-prompt a {
+        color: var(--blue);
+        font-family: var(--mono);
+        font-weight: 700;
+      }
+
       .belief-grid {
         display: grid;
         gap: clamp(30px, 5vw, 70px);
@@ -516,6 +563,10 @@
         line-height: 1.35;
         margin-top: 34px;
         padding-top: 22px;
+      }
+
+      #slide-4 .reframe-line {
+        color: var(--slate);
       }
 
       .solution-flow {
@@ -765,6 +816,75 @@
         overflow-wrap: anywhere;
       }
 
+      .workshop-launch-centered {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-inline: auto;
+        max-width: 920px;
+        text-align: center;
+      }
+
+      .workshop-launch-centered h2 {
+        font-size: clamp(34px, 4vw, 50px);
+        margin-bottom: 14px;
+        max-width: 820px;
+      }
+
+      .workshop-launch-centered .subtitle {
+        line-height: 1.42;
+        max-width: 760px;
+      }
+
+      .workshop-launch-centered .launch-code {
+        aspect-ratio: auto;
+        margin-top: 20px;
+        max-width: 340px;
+        padding: 16px 22px;
+        width: min(100%, 340px);
+      }
+
+      .workshop-launch-centered .launch-code img {
+        max-width: 170px;
+      }
+
+      .workshop-launch-centered .launch-url {
+        font-size: clamp(13px, 1.2vw, 17px);
+        margin-top: 8px;
+      }
+
+      .workshop-launch-centered .launch-code span {
+        font-size: 13px;
+        margin-top: 8px;
+      }
+
+      .handoff-check {
+        border-top: 1px solid #8c7f6d;
+        color: #eee7da;
+        font-size: 16px;
+        margin-top: 18px;
+        padding-top: 12px;
+        width: min(100%, 720px);
+      }
+
+      #slide-1,
+      #slide-7 {
+        padding-block: 44px;
+      }
+
+      #slide-1 h1 {
+        font-size: clamp(42px, 5.5vw, 70px);
+        margin-bottom: 18px;
+      }
+
+      #slide-1 .login-prompt {
+        margin-top: 22px;
+      }
+
+      #slide-1 .meta-row {
+        margin-top: 24px;
+      }
+
       #slide-7 h2 {
         margin-bottom: 26px;
       }
@@ -1006,6 +1126,7 @@
         .belief-grid,
         .solution-flow,
         .term-list,
+        .delivery-layout,
         .delivery-options {
           grid-template-columns: 1fr;
         }
@@ -1088,7 +1209,7 @@
     <div class="progress" aria-hidden="true">
       <span id="progressFill"></span>
     </div>
-    <div id="counter" aria-hidden="true">1 / 13</div>
+    <div id="counter" aria-hidden="true">1 / 7</div>
     <div
       class="sr-only"
       aria-live="polite"
@@ -1097,19 +1218,23 @@
     ></div>
 
     <main>
-      <section class="slide active" id="slide-1" aria-label="Example product and session promise">
+      <section class="slide active" id="slide-1" aria-label="Session promise and GitHub sign-in prompt">
         <div class="slide-inner wide outcome-layout">
           <div>
-            <p class="eyebrow reveal">OLC Accelerate 2026 / education session</p>
+            <p class="eyebrow reveal">OLC Accelerate 2026 / GitHub for instructional designers</p>
             <h1 class="reveal">Today, you will make something like this.</h1>
             <p class="subtitle reveal">
               A useful, accessible LMS interaction—created in a browser, with
               AI support, and without becoming a programmer.
             </p>
+            <div class="login-prompt reveal">
+              <strong>Before we begin, sign in to GitHub.</strong>
+              <p>On your laptop, open <a href="https://github.com/login">github.com/login</a>. Use whichever sign-in method is fastest; a .edu address is not required.</p>
+            </div>
             <div class="meta-row reveal">
               <span>Anna Everett and Jian Su</span>
               <span>University of Tennessee, Knoxville</span>
-              <span>brief tour + guided workshop</span>
+              <span>orientation + live demonstration</span>
             </div>
           </div>
           <div class="media-frame product-shot reveal">
@@ -1121,135 +1246,35 @@
         </div>
       </section>
 
-      <section class="slide" id="slide-2" aria-label="Session plan and learning objectives">
+      <section class="slide" id="slide-2" aria-label="Session plan and outcome">
         <div class="slide-inner wide">
           <p class="eyebrow reveal">What we will do today</p>
-          <h2 class="reveal">A short orientation. A guided build. Your own working example.</h2>
+          <h2 class="reveal">A short orientation. A live build. A reusable workflow.</h2>
           <div class="session-plan reveal">
             <div class="session-phase">
               <span>01 / orient</span>
               <h3>See the possibility</h3>
-              <p>Examine the LMS constraint, the finished product, and the workflow.</p>
+              <p>See where GitHub fits in an instructional design workflow.</p>
             </div>
             <div class="session-phase">
-              <span>02 / learn</span>
-              <h3>Decode GitHub</h3>
-              <p>Learn the five terms and actions needed for this project.</p>
+              <span>02 / watch</span>
+              <h3>Follow the workflow</h3>
+              <p>Watch a fork become an edited, published webpage.</p>
             </div>
             <div class="session-phase">
-              <span>03 / follow</span>
-              <h3>Build with us</h3>
-              <p>Fork, edit, check, save, publish, and embed one example together.</p>
-            </div>
-            <div class="session-phase">
-              <span>04 / practice</span>
-              <h3>Make it yours</h3>
-              <p>Customize real course content while we circulate and help.</p>
+              <span>03 / apply</span>
+              <h3>Deliver to Canvas</h3>
+              <p>Choose direct-paste HTML or a hosted iframe.</p>
             </div>
           </div>
           <div class="outcomes reveal">
-            <strong>By the end, you can customize, deliver, and verify a small LMS interaction.</strong>
-            <p>You will also be able to explain what a repository, fork, commit, and GitHub Pages do in this workflow.</p>
+            <strong>By the end, you can explain and repeat the five-step workflow.</strong>
+            <p>Fork → edit → commit → publish → deliver to Canvas.</p>
           </div>
         </div>
       </section>
 
-      <section class="slide" id="slide-3" aria-label="The LMS design constraint">
-        <div class="slide-inner wide">
-          <p class="eyebrow reveal">The LMS constraint</p>
-          <h2 class="reveal">The learning design is often richer than the production options.</h2>
-          <div class="grid-3">
-            <article class="panel reveal">
-              <div class="panel-label">LMS editor</div>
-              <h3>Reliable, but limited</h3>
-              <p>Interactive ideas are often reduced to static text, links, and long vertical pages.</p>
-            </article>
-            <article class="panel reveal">
-              <div class="panel-label">Authoring suite</div>
-              <h3>Capable, but heavy</h3>
-              <p>Licenses and packaged exports can make small interactions expensive or difficult to revise.</p>
-            </article>
-            <article class="panel reveal">
-              <div class="panel-label">Custom development</div>
-              <h3>Flexible, but distant</h3>
-              <p>Developer workflows can appear to require coding expertise, local setup, and technical support.</p>
-            </article>
-          </div>
-          <div class="resource-strip reveal">
-            <span>The compromise:</span>
-            <span>simplify the teaching idea, buy another tool, or wait for development capacity.</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="slide invert" id="slide-4" aria-label="Imposter feelings around developer tools">
-        <div class="slide-inner wide">
-          <p class="eyebrow reveal">The psychological constraint</p>
-          <h2 class="reveal">The tool can feel like it belongs to someone else.</h2>
-          <div class="belief-grid reveal">
-            <article class="panel">
-              <div class="panel-label">What creates the barrier</div>
-              <h3>Code anxiety and imposter feelings</h3>
-              <ul>
-                <li>Unfamiliar language signals: “This is not my space.”</li>
-                <li>Version control sounds riskier than ordinary saving.</li>
-                <li>Fear of breaking something discourages exploration.</li>
-              </ul>
-            </article>
-            <article class="panel">
-              <div class="panel-label">What instructional designers already do</div>
-              <h3>Design, test, revise, and document</h3>
-              <ul>
-                <li>Translate learning goals into concrete experiences.</li>
-                <li>Prototype, gather feedback, and improve an artifact.</li>
-                <li>Apply accessibility and quality criteria before release.</li>
-              </ul>
-            </article>
-          </div>
-          <p class="reframe-line reveal">You do not need a new professional identity. You need a safe first workflow.</p>
-        </div>
-      </section>
-
-      <section class="slide" id="slide-5" aria-label="How the workflow solves the constraint">
-        <div class="slide-inner wide">
-          <p class="eyebrow reveal">The practical bridge</p>
-          <h2 class="reveal">Turn one teaching idea into a small, testable webpage.</h2>
-          <div class="solution-flow reveal">
-            <div class="solution-step">
-              <span>01 / define</span>
-              <strong>Learning goal</strong>
-              <p>Decide what students should do or notice.</p>
-            </div>
-            <div class="solution-step">
-              <span>02 / draft</span>
-              <strong>AI support</strong>
-              <p>Describe the interaction and required safeguards.</p>
-            </div>
-            <div class="solution-step">
-              <span>03 / edit</span>
-              <strong>GitHub browser editor</strong>
-              <p>Customize the small webpage without local setup.</p>
-            </div>
-            <div class="solution-step">
-              <span>04 / verify</span>
-              <strong>Human review</strong>
-              <p>Check content, keyboard use, and responsive behavior.</p>
-            </div>
-            <div class="solution-step">
-              <span>05 / deliver</span>
-              <strong>Pages + LMS</strong>
-              <p>Publish the webpage and embed it in the course.</p>
-            </div>
-          </div>
-          <div class="resource-strip reveal">
-            <span>GitHub supplies the workspace and history.</span>
-            <span>AI helps draft.</span>
-            <span>The instructional designer remains responsible for the result.</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="slide" id="slide-6" aria-label="Essential GitHub vocabulary">
+      <section class="slide" id="slide-3" aria-label="Essential GitHub vocabulary">
         <div class="slide-inner wide">
           <p class="eyebrow reveal">Five words are enough to begin</p>
           <h2 class="reveal">GitHub is an online project folder with a memory.</h2>
@@ -1278,181 +1303,115 @@
         </div>
       </section>
 
-      <section class="slide" id="slide-7" aria-label="Two participation paths">
+      <section class="slide" id="slide-4" aria-label="Why GitHub is useful for instructional designers">
         <div class="slide-inner wide">
-          <p class="eyebrow reveal">Choose the path that fits today</p>
-          <h2 class="reveal">Two runways. The same working interactive.</h2>
-          <div class="grid-2">
-            <article class="runway reveal">
-              <div class="panel-label">Runway A / quickest route</div>
-              <h3>Use the live builder</h3>
-              <p>No GitHub account is required. Customize the example, copy the HTML, and paste it into the LMS.</p>
-              <ol>
-                <li><strong>Best when</strong> Account setup, Wi-Fi, 2FA, or device policy gets in the way.</li>
-                <li><strong>You keep</strong> A working LMS interaction you can reuse.</li>
-              </ol>
+          <p class="eyebrow reveal">Why this workflow matters</p>
+          <h2 class="reveal">Your design idea should not stop at the edge of the LMS editor.</h2>
+          <div class="grid-3">
+            <article class="panel reveal">
+              <div class="panel-label">LMS editor</div>
+              <h3>Reliable, but limited</h3>
+              <p>Useful interaction ideas can collapse into static text and long pages.</p>
             </article>
-            <article class="runway reveal">
-              <div class="panel-label">Runway B / maintainable route</div>
-              <h3>Use the GitHub workflow</h3>
-              <p>Make a personal copy, edit it in the browser, publish it, and embed the live webpage in the LMS.</p>
-              <ol>
-                <li><strong>Best when</strong> You want to update the hosted object after the workshop.</li>
-                <li><strong>You keep</strong> A versioned project and a reusable public URL.</li>
-              </ol>
+            <article class="panel reveal">
+              <div class="panel-label">Authoring suite</div>
+              <h3>Capable, but heavy</h3>
+              <p>Licenses and packaged exports can make small changes costly or slow.</p>
+            </article>
+            <article class="panel reveal">
+              <div class="panel-label">GitHub + AI</div>
+              <h3>Flexible and reachable</h3>
+              <p>A browser-based workspace makes small, testable webpages easier to build and revise.</p>
             </article>
           </div>
-          <p class="choice-note reveal">Runway A is not a lesser outcome. You can move to GitHub later.</p>
+          <p class="reframe-line reveal">You already design, test, revise, and document. GitHub gives those habits a safe project history.</p>
         </div>
       </section>
 
-      <section class="slide" id="slide-8" aria-label="Fork the starter repository">
-        <div class="slide-inner wide visual-walkthrough">
-          <div>
-            <p class="eyebrow reveal">We will do this together / part one</p>
-            <h2 class="reveal">Fork the starter to make your own safe copy.</h2>
-            <div class="action-step reveal">
-              <span>01 / fork</span>
-              <h3>Select Fork</h3>
-              <p>The original repository stays intact. Your fork becomes a personal workspace where you can experiment without changing the presenters’ copy.</p>
-            </div>
-          </div>
-          <div class="fork-visuals reveal">
-            <div class="media-frame fork-context">
-              <img
-                src="02-github-fork2.png"
-                alt="GitHub repository page with an orange arrow and outline identifying the Fork button"
-              >
-            </div>
-            <div class="media-frame fork-zoom">
-              <img
-                src="02-github-fork.png"
-                alt="Close-up of the Watch, Fork, and Starred controls on GitHub"
-              >
-              <span>Look for Fork near the upper-right corner.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="slide" id="slide-9" aria-label="Open the GitHub browser editor">
-        <div class="slide-inner wide visual-walkthrough">
-          <div>
-          <p class="eyebrow reveal">We will do this together / part two</p>
-            <h2 class="reveal">Press <kbd>.</kbd> to open the repository in a browser editor.</h2>
-            <div class="action-step reveal">
-              <span>02 / open + edit</span>
-              <h3>Open <code>index.html</code></h3>
-              <p>Use the file list to find the interactive. Make a small, visible change and preview the result before saving.</p>
-            </div>
-          </div>
-          <div class="media-frame editor-shot reveal">
-            <img
-              src="03-github-web-editor.png"
-              alt="GitHub browser editor with the slides folder expanded and index.html open for editing"
-            >
-          </div>
-        </div>
-      </section>
-
-      <section class="slide" id="slide-10" aria-label="Commit changes in GitHub">
-        <div class="slide-inner wide visual-walkthrough">
-          <div>
-            <p class="eyebrow reveal">We will do this together / part three</p>
-            <h2 class="reveal">Commit creates a named save point.</h2>
-            <div class="action-steps reveal">
-              <div class="action-step">
-                <span>03 / describe</span>
-                <h3>Name the change</h3>
-                <p>Write a short message that explains what you changed.</p>
-              </div>
-              <div class="action-step">
-                <span>04 / save</span>
-                <h3>Commit &amp; Push</h3>
-                <p>Save the new version back to your GitHub repository.</p>
-              </div>
-            </div>
-          </div>
-          <div class="media-frame commit-shot reveal">
-            <img
-              src="05-commit-controls.png"
-              alt="GitHub browser editor Source Control panel with a commit message, changed index.html file, and Commit and Push button"
-            >
-          </div>
-        </div>
-      </section>
-
-      <section class="slide" id="slide-11" aria-label="Publish with GitHub Pages">
+      <section class="slide" id="slide-5" aria-label="Five-step GitHub workflow">
         <div class="slide-inner wide">
-          <p class="eyebrow reveal">We will do this together / part four</p>
-          <h2 class="reveal">GitHub Pages turns the repository into a live website.</h2>
-          <div class="action-steps reveal">
-            <div class="action-step">
-              <span>05 / publish</span>
-              <h3>Open Settings → Pages</h3>
-              <p>Enable Pages for the repository and wait for GitHub to publish the site.</p>
+          <p class="eyebrow reveal">The live demonstration map</p>
+          <h2 class="reveal">Five actions turn the starter into your own live webpage.</h2>
+          <div class="solution-flow reveal">
+            <div class="solution-step">
+              <span>01 / copy</span>
+              <strong>Fork</strong>
+              <p>Make a safe copy in your account.</p>
             </div>
-            <div class="action-step">
-              <span>06 / copy</span>
-              <h3>Copy the live URL</h3>
-              <p>This web address is what you will link to or embed in the LMS.</p>
+            <div class="solution-step">
+              <span>02 / change</span>
+              <strong>Edit</strong>
+              <p>Press <kbd>.</kbd> and update <code>index.html</code>.</p>
+            </div>
+            <div class="solution-step">
+              <span>03 / save</span>
+              <strong>Commit</strong>
+              <p>Name and save the new version.</p>
+            </div>
+            <div class="solution-step">
+              <span>04 / publish</span>
+              <strong>Pages</strong>
+              <p>Publish from <code>main</code> and <code>/(root)</code>.</p>
+            </div>
+            <div class="solution-step">
+              <span>05 / deliver</span>
+              <strong>Canvas</strong>
+              <p>Paste the HTML or embed the live page.</p>
             </div>
           </div>
-          <div class="media-frame pages-shot reveal">
-            <img
-              src="06-github-pages-url.png"
-              alt="GitHub Pages settings showing a success message and the live published website URL"
-            >
+          <div class="resource-strip reveal">
+            <span>Su demonstrates the workflow live.</span>
+            <span>Anna circulates if you get stuck.</span>
+            <span>Questions are welcome after the full sequence.</span>
           </div>
         </div>
       </section>
 
-      <section class="slide" id="slide-12" aria-label="Deliver the published interactive through the LMS">
+      <section class="slide" id="slide-6" aria-label="Two ways to deliver the interaction in Canvas">
         <div class="slide-inner wide">
-          <p class="eyebrow reveal">Return to the LMS</p>
-          <h2 class="reveal">The Pages URL is the bridge back to your course.</h2>
-          <div class="delivery-options reveal">
-            <div class="delivery-option">
-              <span>Option A / link</span>
-              <h3>Send students to the published page</h3>
-              <p>Add the GitHub Pages URL as a module link, button, or course resource.</p>
+          <p class="eyebrow reveal">Two Canvas delivery options</p>
+          <h2 class="reveal">Paste the accordion itself—or embed the hosted page.</h2>
+          <div class="delivery-layout reveal">
+            <div class="delivery-options">
+              <div class="delivery-option">
+                <span>Option A / direct paste</span>
+                <h3>Use the accordion builder’s HTML</h3>
+                <p>Select <strong>Copy Canvas-ready HTML</strong>, then paste it into Canvas’s HTML editor. No iframe is needed.</p>
+              </div>
+              <div class="delivery-option">
+                <span>Option B / hosted page</span>
+                <h3>Embed your GitHub Pages URL</h3>
+                <p>Replace <code>YOUR_GITHUB_PAGES_URL</code> in the example, then paste the iframe into Canvas’s HTML editor.</p>
+              </div>
             </div>
-            <div class="delivery-option">
-              <span>Option B / embed</span>
-              <h3>Display it inside an LMS page</h3>
-              <p>Embed the GitHub Pages content in the LMS HTML editor so students can interact without leaving the course.</p>
+            <div>
+              <pre class="snippet" aria-label="Example iframe code"><code>&lt;iframe
+  src="YOUR_GITHUB_PAGES_URL"
+  title="Interactive course content"
+  style="width:100%; min-height:650px; border:0;"
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code></pre>
+              <p class="pages-note"><strong>Pages setup:</strong> Settings → Pages → Deploy from a branch → <code>main</code> → <code>/(root)</code>. Free accounts publish Pages from public repositories; private-repository publishing requires a supported paid or organizational plan. Follow your institution’s Canvas embedding policy.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="slide invert" id="slide-13" aria-label="Workshop launch">
-        <div class="slide-inner wide workshop-launch">
-          <div>
-            <p class="eyebrow reveal">Workshop mode</p>
-            <h2 class="reveal">First, we build together. Then, you make it yours.</h2>
-            <div class="workshop-steps reveal">
-              <div class="workshop-step">
-                <span>Build together</span>
-                <h3>Follow each step</h3>
-                <p>We will pause after every click so you can keep up and ask questions.</p>
-              </div>
-              <div class="workshop-step">
-                <span>Practice</span>
-                <h3>Make it your own</h3>
-                <p>Customize real course content while we circulate and help.</p>
-              </div>
-            </div>
-          </div>
+      <section class="slide invert" id="slide-7" aria-label="Live demonstration handoff and participant repository">
+        <div class="slide-inner workshop-launch-centered">
+          <p class="eyebrow reveal">Ready for the live demonstration?</p>
+          <h2 class="reveal">Signed in? Open the starter repository.</h2>
+          <p class="subtitle reveal">On a laptop, enter the web address. On a phone, scan the code to follow along or save the repository for later.</p>
           <div class="launch-code reveal">
-            <strong>Workshop start</strong>
+            <strong>Participant repository</strong>
             <img
               src="qr-code.png"
-              alt="QR code for the workshop starting page at tinylink.net/UYNWB"
+              alt="QR code for the participant workshop repository at tiny.utk.edu/olc-github"
             >
-            <a class="launch-url" href="https://tinylink.net/UYNWB">tinylink.net/UYNWB</a>
-            <span>Scan the code or enter the short URL.</span>
+            <a class="launch-url" href="https://tiny.utk.edu/olc-github">tiny.utk.edu/olc-github</a>
+            <span>Scan to open the participant repository.</span>
           </div>
+          <p class="handoff-check reveal">Before we hand off: confirm that GitHub shows your profile image in the upper-right corner. If not, raise your hand and we will help.</p>
         </div>
       </section>
     </main>
